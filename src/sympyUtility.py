@@ -15,11 +15,12 @@ def show_item(s,latex,cpp,cpp_format):
 
 
 def show(s,latex=False,cpp=False,cpp_format=lambda *args: args[0]):
-    if isinstance(s, Iterable):
-        for exp in s:
-            show_item(exp,latex,cpp,cpp_format)
-    else:
-        show_item(s,latex,cpp,cpp_format)
+    if __name__ == "__main__" :
+        if isinstance(s, Iterable):
+            for exp in s:
+                show_item(exp,latex,cpp,cpp_format)
+        else:
+            show_item(s,latex,cpp,cpp_format)
 
 def bernstein_func(m,i,param):
     return (param**i)*((1-param)**(m-i))*(
