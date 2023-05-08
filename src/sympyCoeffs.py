@@ -59,3 +59,6 @@ class Coefficients():
         for k,v in self.conditions.items():
             show(sp.Eq(k,v),**argv)
 
+    def multi(self,i,j,multiplicand):
+        return sp.Eq(self.left[i,j]*multiplicand,
+                     (self.coeffs[i][j]*multiplicand).subs(self.conditions))
