@@ -14,12 +14,18 @@ def show_item(s,latex,cpp,cpp_format):
     display(Math(sp.latex(s)))
 
 
-def show(s,latex=False,cpp=False,cpp_format=lambda *args: None):
+def show(s,latex=False,cpp=False,cpp_format=lambda *args: args[0]):
     if isinstance(s, Iterable):
         for exp in s:
             show_item(exp,latex,cpp,cpp_format)
     else:
         show_item(s,latex,cpp,cpp_format)
+
+def bernstein_func(m,i,param):
+    return (param**i)*((1-param)**(m-i))*(
+#         math.factorial(m) // math.factorial(i) // math.factorial(m - i)
+        sp.binomial(m, i)
+    )
 
 
 def reverse(d):
