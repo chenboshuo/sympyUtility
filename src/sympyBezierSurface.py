@@ -16,21 +16,20 @@ class BezierSurface:
             sp.symbols(r"\boldsymbol{" + control_point_symbol + "}_{" +
                        f"{i}{j}" + "}") for j in range(degree[1] + 1)
         ] for i in range(degree[0] + 1)])
-        self.param_symbol = sp.symbols(" ".join(param_symbol))
-        self.param = self.param_symbol
+        self.params = sp.symbols(" ".join(param_symbol))
         self.bernstein = self.bezier_surface()
         self.coeffs_symbols = sp.Matrix([[
             sp.Symbol(r"\boldsymbol{" + poly_coeff_symbol + "}_{" + f"{i}{j}" +
                       "}") for j in range(degree[1] + 1)
         ] for i in range(degree[0] + 1)])
         self.poly_format = sum(self.coeffs_symbols[i, j] *
-                               self.param_symbol[0]**i *
-                               self.param_symbol[1]**j for i, j in self.ij())
+                               self.params[0]**i *
+                               self.params[1]**j for i, j in self.ij())
         self.coeffs = {
             i: {
                 j:
-                self.bernstein.expand().coeff(self.param_symbol[0],
-                                              i).coeff(self.param_symbol[1], j)
+                self.bernstein.expand().coeff(self.params[0],
+                                              i).coeff(self.params[1], j)
                 for j in range(self.degree[1] + 1)
             }
             for i in range(self.degree[0] + 1)
@@ -46,8 +45,8 @@ class BezierSurface:
         for i, j in product(range(self.degree[0] + 1),
                             range(self.degree[1] + 1)):
             s += bernstein_func(
-                self.degree[0], i, self.param_symbol[0]) * bernstein_func(
-                    self.degree[1], j, self.param_symbol[1]) * \
+                self.degree[0], i, self.params[0]) * bernstein_func(
+                    self.degree[1], j, self.params[1]) * \
                 self.control_points[i, j]
         return s
 
